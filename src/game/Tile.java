@@ -1,5 +1,7 @@
 package game;
 
+import shared.Constants;
+
 public class Tile {
 	PlayerColor tileColor;
 	ChessPiece occupant;
@@ -29,5 +31,18 @@ public class Tile {
 
 	public BoardCoordinate getLocation() {
 		return location;
+	}
+
+	@Override
+	public String toString() {
+		String bgColor = (tileColor==PlayerColor.BLACK) ? Constants.DARK_SQUARE_COLOR : Constants.LIGHT_SQUARE_COLOR;
+		String contents;
+
+		if (isOccupied())
+			contents = getOccupant().toString();
+		else
+			contents = ((tileColor==PlayerColor.BLACK) ? Constants.DARK_PIECE_COLOR : Constants.LIGHT_PIECE_COLOR) + " ";
+
+		return bgColor + contents + Constants.RESET_FORMATTING;
 	}
 }

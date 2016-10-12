@@ -1,5 +1,7 @@
 package game;
 
+import shared.Constants;
+
 public class ChessPiece {
 	PieceClass cls;
 	PlayerColor color;
@@ -25,5 +27,10 @@ public class ChessPiece {
 
 	public void setLocation(BoardCoordinate location) {
 		this.location = location;
+	}
+
+	@Override
+	public String toString() {
+		return ((color == PlayerColor.BLACK) ? Constants.DARK_PIECE_COLOR : Constants.LIGHT_PIECE_COLOR) + cls.toString() + Constants.RESET_FORMATTING;
 	}
 }
