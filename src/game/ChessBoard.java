@@ -11,47 +11,52 @@ public class ChessBoard {
 		board = new HashMap<LetterCoordinate, HashMap<Integer, Tile>>();
 
 		PlayerColor currentColor = PlayerColor.WHITE;
+
 		for (LetterCoordinate lc : LetterCoordinate.values()) {
 			board.put(lc, new HashMap<Integer, Tile>());
-
 			for (Integer i=1; i <= Constants.BOARD_SIZE; i++) {
 				board.get(lc).put(i, new Tile(currentColor, new BoardCoordinate(lc, i)));
 				currentColor = (currentColor == PlayerColor.BLACK) ? PlayerColor.WHITE : PlayerColor.BLACK;
 			}
-			currentColor = (currentColor == PlayerColor.BLACK) ? PlayerColor.WHITE : PlayerColor.BLACK;
 
+			currentColor = (currentColor == PlayerColor.BLACK) ? PlayerColor.WHITE : PlayerColor.BLACK;
 		}
 
 		setPieces();
 	}
 
+
 	private void setPieces() {
 		for (PlayerColor color : PlayerColor.values()) {
 			for (PieceClass cls : PieceClass.values()) {
-				int targetRow = (cls == PieceClass.PAWN) ?
-						(color == PlayerColor.BLACK) ? Constants.BLACK_PAWN_ROW  : Constants.WHITE_PAWN_ROW :
-							(color == PlayerColor.BLACK) ? Constants.BLACK_ROYAL_ROW : Constants.WHITE_ROYAL_ROW;
+				int targetRow = (cls == PieceClass.PAWN) ? (color == PlayerColor.BLACK) ? Constants.BLACK_PAWN_ROW  : Constants.WHITE_PAWN_ROW : (color == PlayerColor.BLACK) ? Constants.BLACK_ROYAL_ROW : Constants.WHITE_ROYAL_ROW;
+
 				switch(cls) {
 				case PAWN:
 					for (LetterCoordinate lc : LetterCoordinate.values()) {
 						board.get(lc).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(lc, targetRow)));
 					}
 					break;
+
 				case ROOK:
 					board.get(Constants.ROOK_COLUMN_1).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.ROOK_COLUMN_1, targetRow)));
 					board.get(Constants.ROOK_COLUMN_2).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.ROOK_COLUMN_2, targetRow)));
 					break;
+
 				case KNIGHT:
 					board.get(Constants.KNIGHT_COLUMN_1).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.KNIGHT_COLUMN_1, targetRow)));
 					board.get(Constants.KNIGHT_COLUMN_2).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.KNIGHT_COLUMN_2, targetRow)));
 					break;
+
 				case BISHOP:
 					board.get(Constants.BISHOP_COLUMN_1).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.BISHOP_COLUMN_1, targetRow)));
 					board.get(Constants.BISHOP_COLUMN_2).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.BISHOP_COLUMN_2, targetRow)));
 					break;
+
 				case QUEEN:
 					board.get(Constants.QUEEN_COLUMN).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.QUEEN_COLUMN, targetRow)));
 					break;
+
 				case KING:
 					board.get(Constants.KING_COLUMN).get(targetRow).setOccupant(new ChessPiece(cls, color, new BoardCoordinate(Constants.KING_COLUMN, targetRow)));
 					break;
@@ -92,4 +97,10 @@ public class ChessBoard {
 
 		return result;
 	}
+
+	public Tile getTile(LetterCoordinate lc, int row) {
+		return board.get(lc).get(row);
+	}
+
+
 }

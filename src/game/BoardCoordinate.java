@@ -16,4 +16,9 @@ public class BoardCoordinate {
 	public Integer getVerticalComponent() {
 		return verticalComponent;
 	}
+
+	@Override
+	public String toString() {
+		return horizontalComponent.toString() + verticalComponent;
+	}
 }
